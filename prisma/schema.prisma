@@ -1,0 +1,69 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Player {
+  username     String @id
+  email        String @unique
+  ranking      Int
+  level        Int
+  victories    Int
+  defeats      Int
+  teamPlayer1  Team[] @relation("TeamPlayer1")
+  teamPlayer2  Team[] @relation("TeamPlayer2")
+  teamPlayer3  Team[] @relation("TeamPlayer3")
+  teamPlayer4  Team[] @relation("TeamPlayer4")
+  teamPlayer5  Team[] @relation("TeamPlayer5")
+  characters   Character[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Team {
+  id      Int    @id @default(autoincrement())
+  name    String
+  player1 Player @relation("TeamPlayer1", fields: [player1Username], references: [username])
+  player2 Player @relation("TeamPlayer2", fields: [player2Username], references: [username])
+  player3 Player @relation("TeamPlayer3", fields: [player3Username], references: [username])
+  player4 Player @relation("TeamPlayer4", fields: [player4Username], references: [username])
+  player5 Player @relation("TeamPlayer5", fields: [player5Username], references: [username])
+  player1Username String
+  player2Username String
+  player3Username String
+  player4Username String
+  player5Username String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([player1Username])
+  @@index([player2Username])
+  @@index([player3Username])
+  @@index([player4Username])
+  @@index([player5Username])
+}
+
+model Character {
+  id          Int      @id @default(autoincrement())
+  name        String
+  health      Int
+  attack      Int
+  defense     Int
+  speed       Int
+  player      Player   @relation(fields: [playerUsername], references: [username])
+  playerUsername String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([playerUsername])
+}
