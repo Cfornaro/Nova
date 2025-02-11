@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 
 const apiRoutes = require('./routes');
+require('dotenv').config();
 
 // Middleware
 app.use(bodyParser.json());
@@ -33,9 +34,13 @@ app.get('/', (req, res) => {
 //   res.sendFile(path.join(__dirname, 'public', 'pages', 'login.html'));
 // });
 
+app.get('/crearPlayer', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'pages', 'crearPlayer.html'));
+});
+
 // Configuración del servidor
-const PORT = process.env.HTTP_PORT || 8100;
-const IP = process.env.HTTP_IP || '::';
+const PORT = process.env.HTTP_PORT || 8200;
+const IP = process.env.HTTP_IP || 'localhost';
 
 app.listen(PORT, IP, () => {
   console.log(`Server running at http://${IP}:${PORT}/`);
