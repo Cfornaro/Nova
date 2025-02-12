@@ -1,0 +1,70 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  binaryTargets = ["native", "linux-arm64-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Player {
+  username     String @id
+  email        String @unique
+  ranking      Int
+  level        Int
+  victories    Int
+  defeats      Int
+  characters   Character[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Team {
+  id            Int        @id @default(autoincrement())
+  name          String
+  character1    Character  @relation("TeamCharacter1", fields: [character1Id], references: [id])
+  character2    Character  @relation("TeamCharacter2", fields: [character2Id], references: [id])
+  character3    Character  @relation("TeamCharacter3", fields: [character3Id], references: [id])
+  character4    Character  @relation("TeamCharacter4", fields: [character4Id], references: [id])
+  character5    Character  @relation("TeamCharacter5", fields: [character5Id], references: [id])
+  character1Id  Int
+  character2Id  Int
+  character3Id  Int
+  character4Id  Int
+  character5Id  Int
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+
+  @@index([character1Id])
+  @@index([character2Id])
+  @@index([character3Id])
+  @@index([character4Id])
+  @@index([character5Id])
+}
+
+model Character {
+  id          Int      @id @default(autoincrement())
+  name        String
+  health      Int
+  attack      Int
+  defense     Int
+  speed       Int
+  player      Player   @relation(fields: [playerUsername], references: [username])
+  playerUsername String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  teamCharacter1 Team[] @relation("TeamCharacter1")
+  teamCharacter2 Team[] @relation("TeamCharacter2")
+  teamCharacter3 Team[] @relation("TeamCharacter3")
+  teamCharacter4 Team[] @relation("TeamCharacter4")
+  teamCharacter5 Team[] @relation("TeamCharacter5")
+
+  @@index([playerUsername])
+}

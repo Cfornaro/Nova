@@ -3,17 +3,15 @@ const app = express();
 const bodyParser = require('body-parser');
 const path = require('path');
 
-const moviesRoutes = require('./routes/moviesRoutes');
+const apiRoutes = require('./routes');
+require('dotenv').config();
 
 // Middleware
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Rutas de la API
-app.use('/api', moviesRoutes);
-// MAS APIS??
-
-
+app.use('/api', apiRoutes);
 
 
 
@@ -29,28 +27,20 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Rutas para páginas web
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.sendFile(path.join(__dirname, 'public', 'pages', 'index.html'));
 });
 
-app.get('/login', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'pages', 'login.html'));
-});
+// app.get('/login', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'public', 'pages', 'login.html'));
+// });
 
-app.get('/perfil', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'pages', 'perfil.html'));
-});
-
-app.get('/registrarse', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'pages', 'registrarse.html'));
-});
-
-app.get('/addMovie', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'pages', 'user.html'));
+app.get('/crearPlayer', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'pages', 'crearPlayer.html'));
 });
 
 // Configuración del servidor
-const PORT = process.env.ALWAYSDATA_HTTPD_PORT || 8100;
-const IP = process.env.ALWAYSDATA_HTTPD_IP || '::';
+const PORT = process.env.HTTP_PORT || 8200;
+const IP = process.env.HTTP_IP || 'localhost';
 
 app.listen(PORT, IP, () => {
   console.log(`Server running at http://${IP}:${PORT}/`);
