@@ -1,12 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const playerController = require('../controllers/playerController');
+const teamController = require('../controllers/teamController');
 
-//establecer las rutas propias de jugadores, el metodo y especificar el del modulo controller que funcion empleamos 
-// router.get('/player', playerController.getAllPlayers);
-// router.get('/player/:username', playerController.getPlayerByUsername);
-// router.post('/player', playerController.createPlayer);
-
-// Otras rutas para POST, PUT, DELETE si queremos implementar
+router.get('/', teamController.getAllTeams);
+router.get('/:id', teamController.getTeamById);
+router.post('/', teamController.createTeam);
+router.put('/:id', teamController.updateTeamById);
+router.delete('/:id', teamController.deleteTeamById);
 
 module.exports = router;
