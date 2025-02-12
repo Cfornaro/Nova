@@ -1,9 +1,9 @@
-import { playersAPI } from '/js/api/playersAPI.js';
-import { loadJugador } from '/js/components/cardPlayer.js'; 
+import { playerAPI } from './api/playerAPI.js';
+import { loadJugador } from './components/cardPlayer.js'; 
 
 export async function cargarJugadores() {
     try {
-        const players = await playersAPI.getAll();  
+        const players = await playerAPI.getAll();  
         players.forEach(loadJugador);              
     } catch (error) {
         console.error('Error al cargar los jugadores:', error);

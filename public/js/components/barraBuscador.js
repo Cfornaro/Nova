@@ -1,4 +1,4 @@
-import { playersAPI } from '../api/playersAPI.js';
+import { playerAPI } from '../api/playerAPI.js';
 import { mostrarResultados } from '../index.js';
 
 export function loadBarraBuscador() {
@@ -24,15 +24,10 @@ export function loadBarraBuscador() {
     async function realizarBusqueda() {
         const query = searchInput.value.trim();
         if (query) {
-            try {
-                const resultados = await playersAPI.buscarByName(query);
-                mostrarResultados(resultados);
-            } catch (error) {
-                console.error('Error al buscar jugador:', error);
-                mostrarResultados([]);
-            }
+            const resultados = await playerAPI.searchByUsername(query);
+            mostrarResultados(resultados);
         } else {
-            const allPlayers = await playersAPI.getAll(); 
+            const allPlayers = await playerAPI.getAll(); 
             mostrarResultados(allPlayers);
         }
     }

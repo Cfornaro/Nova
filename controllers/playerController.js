@@ -14,7 +14,7 @@ exports.getAllPlayers = async (req, res) => {
 exports.getPlayerByUsername = async (req, res) => {
     const username = req.params.username;
     try {
-        const player = await prisma.player.findMany({
+        const player = await prisma.player.findUnique({
             where: { username },
         });
         if (player) {
@@ -25,6 +25,27 @@ exports.getPlayerByUsername = async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).send('Error al obtener jugador');
+    }
+};
+
+exports.searchPlayersByUsername = async (req, res) => {
+    const username = req.params.username;
+    try {
+        const players = await prisma.player.findMany({
+            where: {
+            username: {
+                contains: username
+            }
+            }
+        });
+        if (players) {
+            res.json(players);
+        } else {
+            res.status(404).send('Jugadores no encontrados');
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error al obtener jugadores');
     }
 };
 
@@ -41,7 +62,7 @@ exports.createPlayer = async (req, res) => {
     }
 };
 
-exports.updatePlayer = async (req, res) => {
+exports.updatePlayerByUsername = async (req, res) => {
     const username = req.params.username;
     const { email, ranking, level, victories, defeats } = req.body;
     try {
@@ -53,5 +74,22 @@ exports.updatePlayer = async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).send('Error al actualizar jugador');
+    }
+};
+
+exports.deletePlayerByUsername = async (req, res) => {
+    const username = req.params.username;
+    try {
+        const player = await prisma.player.delete({
+            where: { username },
+        });
+        res.json(player);
+    } catch (error) {
+        console.error(error);
+        if (error.code === 'P2025') {
+            res.status(404).send('Jugador no encontrado');
+        } else {
+            res.status(500).send('Error al eliminar jugador');
+        }
     }
 };
