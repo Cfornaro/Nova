@@ -1,0 +1,19 @@
+.dynamic-button {
+    background-color: var(--secondary-light);
+    color: var(--secondary-dark);
+    padding: 10px 20px;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.dynamic-button:hover {
+    background-color: var(--primary-hover);
+    transform: scale(1.05); 
+}
+
+.dynamic-button:active {
+    transform: scale(0.95);
+}

@@ -1,0 +1,60 @@
+:root {
+    /* Colores primarios */
+    --primary-color: #ffc107;       /* Amarillo vibrante */
+    --primary-hover: #fdd835;       /* Amarillo más suave para hover */
+
+    /* Colores secundarios */
+    --secondary-color: gray;        /* Gris neutro */
+    --secondary-light: #bdb9b9;     /* Gris claro */
+    --secondary-dark: #333333;      /* Gris oscuro */
+
+    /* Colores de acento */
+    --accent-color: #ff5722;        /* Naranja intenso */
+    --accent-light: #ff8a50;        /* Naranja claro */
+    --accent-dark: #e64a19;         /* Naranja oscuro */
+
+    /* Colores de fondo */
+    --background-color: #f4f4f4;    /* Fondo general */
+    --white: #ffffff;
+    --black: #000000;
+
+    /* Tipografías */
+    --font-family: 'Arial, sans-serif';
+    --heading-font: 'Monospace', monospace;
+
+    /* Bordes y Sombras */
+    --border-radius: 10px;
+    --box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--background-color);
+    margin: 0;
+    padding: 20px;
+    color: var(--secondary-dark);
+}
+
+.buscador {
+    padding: 10px;
+    margin: 15px 0;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid var(--secondary-color);
+    border-radius: var(--border-radius);
+}
+
+.crear-btn {
+    background-color: var(--secondary-color);
+    padding: 10px;
+    color: var(--white);
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.crear-btn:hover {
+    background-color: var(--primary-color);
+    color: var(--black);
+}

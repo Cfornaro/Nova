@@ -14,7 +14,7 @@ exports.getAllPlayers = async (req, res) => {
 exports.getPlayerByUsername = async (req, res) => {
     const username = req.params.username;
     try {
-        const player = await prisma.player.findUnique({
+        const player = await prisma.player.findMany({
             where: { username },
         });
         if (player) {
