@@ -74,7 +74,7 @@ exports.deleteCharacterById = async (req, res) => {
         if (error.code === 'P2025') {
             res.status(404).send('Personaje no encontrado');
         } else {
-            res.status(500).send('Error al eliminar jugador');
+            res.status(500).send('Error al eliminar personaje');
         }
     }
 };
