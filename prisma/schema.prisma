@@ -6,6 +6,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  binaryTargets = ["native", "linux-arm64-openssl-3.0.x"]
 }
 
 datasource db {
@@ -20,37 +21,32 @@ model Player {
   level        Int
   victories    Int
   defeats      Int
-  teamPlayer1  Team[] @relation("TeamPlayer1")
-  teamPlayer2  Team[] @relation("TeamPlayer2")
-  teamPlayer3  Team[] @relation("TeamPlayer3")
-  teamPlayer4  Team[] @relation("TeamPlayer4")
-  teamPlayer5  Team[] @relation("TeamPlayer5")
   characters   Character[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
 
 model Team {
-  id      Int    @id @default(autoincrement())
-  name    String
-  player1 Player @relation("TeamPlayer1", fields: [player1Username], references: [username])
-  player2 Player @relation("TeamPlayer2", fields: [player2Username], references: [username])
-  player3 Player @relation("TeamPlayer3", fields: [player3Username], references: [username])
-  player4 Player @relation("TeamPlayer4", fields: [player4Username], references: [username])
-  player5 Player @relation("TeamPlayer5", fields: [player5Username], references: [username])
-  player1Username String
-  player2Username String
-  player3Username String
-  player4Username String
-  player5Username String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id            Int        @id @default(autoincrement())
+  name          String
+  character1    Character  @relation("TeamCharacter1", fields: [character1Id], references: [id])
+  character2    Character  @relation("TeamCharacter2", fields: [character2Id], references: [id])
+  character3    Character  @relation("TeamCharacter3", fields: [character3Id], references: [id])
+  character4    Character  @relation("TeamCharacter4", fields: [character4Id], references: [id])
+  character5    Character  @relation("TeamCharacter5", fields: [character5Id], references: [id])
+  character1Id  Int
+  character2Id  Int
+  character3Id  Int
+  character4Id  Int
+  character5Id  Int
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
 
-  @@index([player1Username])
-  @@index([player2Username])
-  @@index([player3Username])
-  @@index([player4Username])
-  @@index([player5Username])
+  @@index([character1Id])
+  @@index([character2Id])
+  @@index([character3Id])
+  @@index([character4Id])
+  @@index([character5Id])
 }
 
 model Character {
@@ -64,6 +60,11 @@ model Character {
   playerUsername String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  teamCharacter1 Team[] @relation("TeamCharacter1")
+  teamCharacter2 Team[] @relation("TeamCharacter2")
+  teamCharacter3 Team[] @relation("TeamCharacter3")
+  teamCharacter4 Team[] @relation("TeamCharacter4")
+  teamCharacter5 Team[] @relation("TeamCharacter5")
 
   @@index([playerUsername])
 }
