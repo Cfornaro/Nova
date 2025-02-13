@@ -4,9 +4,11 @@ export function loadNavbar() {
 
     navbar.innerHTML = `
         <div class="navbar-container">
-            <div class="navbar-logo"></div> <!-- Círculo amarillo -->
+            <div class="navbar-logo">
+                <img src="../Images/LogoAlternative.png" alt="Logo">
+                </div> 
             <div class="navbar-title">NOVA</div> <!-- Título -->
-            <button class="navbar-admin-btn">Admin</button> <!-- Botón Admin -->
+            <div class="navbar-admin-btn">Admin</> <!-- Señalización de cuenta de Admin -->
         </div>
     `;
 
@@ -16,9 +18,9 @@ export function loadNavbar() {
     placeholder.appendChild(navbar);
 //-----------------------------------------------------------------------
     
-    
     // ante el evento click reedirijimos a otra pagina
-    document.querySelector('.navbar-admin-btn').addEventListener('click', () => {
-        window.location.href = '/pages/admin.html';
+    document.querySelector('.navbar-title').addEventListener('click', () => {
+        window.location.href = '/';
     });
+
 }
