@@ -1,11 +1,12 @@
 .title {
     display: flex;
+    max-width: 100%;
     align-items: center;
-    font-size: 30px;
     margin: 0px;
 }
 
 .label {
+    min-width: 28%;
     display: flex;
     color: black;
     font-weight: bold;
@@ -17,7 +18,7 @@
 }
 
 .labelTeam {
-    margin-left: 6%;
+    margin-left: 12.5%;
     margin-top: 6%;
     display: flex;
     color: black;
@@ -27,6 +28,7 @@
     padding: 1vw;
     font-size: 2vw;
     box-sizing: border-box;
+    min-width: 75%;
 }
 
 
@@ -37,26 +39,32 @@
     border-radius: 0px 10px 10px 0px;
     padding: 1vw 10vw 1vw 1vw;
     max-width: 100%;
+    min-width: 72%;
     font-size: 2vw;
     word-wrap: break-word;
-    overflow:auto;
     white-space: normal; 
     box-sizing: border-box;
 
 }
 
 .dataPersonaje {
-    margin-left: 7.5%;
+    margin-left: 12.5%;
     display: flex;
     color: black;
     background-color: white;
     border-radius: 10px 10px 10px 10px;
-    padding: 1vw 10vw 1vw 1vw;
-    font-size: 2vw;
+    min-width: 75%;
+    max-width: 75%;
+    padding: 1vw;
+    font-size: 1vw;
     word-wrap: break-word;
-    overflow:auto;
-    white-space: normal; 
+    overflow-x: auto;
+    white-space: nowrap;
     box-sizing: border-box;
+}
+
+.btn.btn-warning.btn-lg.btn-block {
+    margin-top: 10%;
 }
 
 .body {
@@ -101,6 +109,12 @@
     grid-template-columns: 50% 50%;
 }
 
+.midle-left-container{
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 50% 50%;
+}
+
 .bottom-left-container {
     display: grid;
     grid-template-columns: 1fr;
@@ -122,7 +136,8 @@
 
 .right-container {
     display: grid;
-    grid-template-columns: 1fr;
+    max-width: fit-content;
+    grid-column: 1fr;
     grid-template-rows: auto auto auto auto auto auto;
     background-color: gray;
     padding: 0px;
@@ -133,17 +148,27 @@
 }
 
 .bottom-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 80% 20%;
     background-color: white;
     padding: 20px;
     border-radius: 10px 10px 10px 10px;
+    border: 5px groove #ffc105;
 
 }
-.navbar {
-    background-color: var(--secondary-light);
-    padding: 10px 20px;
-    border-radius: 10px 10px 10px 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: var(--box-shadow);
+
+.bottom-up-container{
+    overflow-y: scroll;
+    max-height: 90%;
+}
+
+.bottom-bottom-container{
+    align-items: end;
+    justify-items: end;
+}
+
+.table.table-hover{
+    overflow-y: scroll;
+    max-width: 100%;
 }

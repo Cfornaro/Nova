@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inicio</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="../styles/style.css">
+  <link rel="stylesheet" href="/styles/components/button.css">
+  <link rel="stylesheet" href="../styles/components/navbar.css">
+</head>
+
+
+<body>
+  <nav id="navbar-placeholder"> </nav>
+  <form>
+    <div class="form-group">
+      <label for="Usuario">Usuario</label>
+      <input type="text" class="form-control" id="Usuario" placeholder="Ingrese Usuario" required>
+    </div>
+    <div class="form-group">
+      <label for="Rango">Rango</label>
+      <input type="number" class="form-control" id="Rango" placeholder="Ingrese Rango" required>
+    </div>
+    <div class="form-group">
+      <label for="Nivel">Nivel</label>
+      <input type="number" class="form-control" id="Nivel" placeholder="Ingrese nivel" required>
+    </div>
+    <div class="form-group">
+      <label for="Email">Email</label>
+      <input type="email" class="form-control" id="Email"  placeholder="Ingrese email" required>
+    </div>
+    <div class="form-group">
+      <label for="Victorias">Victorias</label>
+      <input type="number" class="form-control" id="Victorias"  placeholder="Ingrese victorias totales" required>
+    </div>
+    <div class="form-group">
+      <label for="Derrotas">Derrotas</label>
+      <input type="number" class="form-control" id="Derrotas"  placeholder="Ingrese derrotas totales" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    <div id="button-placeholder"></div>
+  </form>
+
+
+  <script type="module">
+    import { loadNavbar } from '../js/components/navbar.js';
+    import { crearButton } from '/js/components/button.js';
+
+    loadNavbar();
+    crearButton('Cancelar', '/');
+  </script>
+
