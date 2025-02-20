@@ -29,16 +29,16 @@ model Player {
 model Team {
   id            Int        @id @default(autoincrement())
   name          String
-  character1    Character  @relation("TeamCharacter1", fields: [character1Id], references: [id])
-  character2    Character  @relation("TeamCharacter2", fields: [character2Id], references: [id])
-  character3    Character  @relation("TeamCharacter3", fields: [character3Id], references: [id])
-  character4    Character  @relation("TeamCharacter4", fields: [character4Id], references: [id])
-  character5    Character  @relation("TeamCharacter5", fields: [character5Id], references: [id])
-  character1Id  Int
-  character2Id  Int
-  character3Id  Int
-  character4Id  Int
-  character5Id  Int
+  character1    Character? @relation("TeamCharacter1", fields: [character1Id], references: [id], onDelete: SetNull)
+  character2    Character? @relation("TeamCharacter2", fields: [character2Id], references: [id], onDelete: SetNull)
+  character3    Character? @relation("TeamCharacter3", fields: [character3Id], references: [id], onDelete: SetNull)
+  character4    Character? @relation("TeamCharacter4", fields: [character4Id], references: [id], onDelete: SetNull)
+  character5    Character? @relation("TeamCharacter5", fields: [character5Id], references: [id], onDelete: SetNull)
+  character1Id  Int?
+  character2Id  Int?
+  character3Id  Int?
+  character4Id  Int?
+  character5Id  Int?
   createdAt     DateTime   @default(now())
   updatedAt     DateTime   @updatedAt
 
@@ -48,6 +48,7 @@ model Team {
   @@index([character4Id])
   @@index([character5Id])
 }
+
 
 model Character {
   id          Int      @id @default(autoincrement())
