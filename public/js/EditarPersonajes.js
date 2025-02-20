@@ -8,8 +8,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   const params = new URLSearchParams(window.location.search);
   const username = params.get('username');
-  crearButton('Volver', `/pages/user.html`, username);
-
+  crearButton('Volver', `/pages/user.html?username=${username}`);
   if (!username) {
     alert('No se especificó un jugador');
     return;
@@ -21,14 +20,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     const playerCharacters = characters.filter(
       (char) => char.playerUsername === username
     );
-    cargarPersonajes(playerCharacters);
+    cargarPersonajes(playerCharacters, username);
   } catch (error) {
     console.error('Error al cargar personajes:', error);
-    alert(' Problema al cargar los personajes del jugador');
   }
 });
 
-function cargarPersonajes(characters) {
+function cargarPersonajes(characters, username) {
   const tbody = document.querySelector('tbody');
   tbody.innerHTML = '';
 
@@ -47,7 +45,7 @@ function cargarPersonajes(characters) {
     tbody.appendChild(row);
   });
 
-  agregarEventos();
+  agregarEventos(username);
 }
 
 function agregarEventos(username) {
@@ -62,14 +60,14 @@ function agregarEventos(username) {
   document.querySelectorAll('.btn-borrar').forEach((button) => {
     button.addEventListener('click', async () => {
         const id = button.getAttribute('data-id');
-        if (confirm('⚡ ¿Seguro que deseas eliminar este personaje?')) {
+        if (confirm('¿Seguro que deseas eliminar este personaje?')) {
             try {
                 await characterAPI.deleteById(id);
                 alert('Personaje eliminado exitosamente');
                 location.reload();
             } catch (error) {
                 console.error('Error al eliminar personaje:', error);
-                alert('⚠️ Problema al eliminar el personaje');
+                alert('Problema al eliminar el personaje');
             }
         }
     });
