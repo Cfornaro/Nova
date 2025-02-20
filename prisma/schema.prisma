@@ -57,7 +57,7 @@ model Character {
   attack      Int
   defense     Int
   speed       Int
-  player      Player   @relation(fields: [playerUsername], references: [username])
+  player      Player   @relation(fields: [playerUsername], references: [username], onDelete: Cascade)
   playerUsername String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt

@@ -18,8 +18,32 @@ document.addEventListener('DOMContentLoaded', async () => {
   crearButton('Editar Equipos', '/pages/EditarEquipos.html', username);
   crearButton('Editar Personajes', '/pages/EditarPersonajes.html', username);
   crearButton('Editar Jugador', '/pages/EditarJugador.html', username);
-  crearButton('Borrar Jugador', '/', username);
+//-----------------------------------------------------------------  
 
+// Se crea un boton nuevo
+  const buttonPlaceholder = document.getElementById('button-placeholder');
+  const deleteButton = document.createElement('button');
+  deleteButton.textContent = 'Eliminar Jugador';
+  deleteButton.classList.add('btn', 'btn-danger', 'ml-2'); 
+  deleteButton.addEventListener('click', async () => {
+    const confirmacion = confirm(`¿Seguro que deseas eliminar al jugador "${username}"? Esto también eliminará todos sus personajes y equipos asociados.`);
+    if (confirmacion) {
+      try {
+        await playerAPI.deleteByUsername(username);
+        alert('¡Jugador eliminado exitosamente!');
+        window.location.href = '/';
+      } catch (error) {
+        console.error('Error al eliminar el jugador:', error);
+        alert('Problema al eliminar el jugador.');
+      }
+    }
+  });
+
+  buttonPlaceholder.appendChild(deleteButton); 
+
+
+
+//-----------------------------------------------------------------
   try {
 
     const player = await playerAPI.getByUsername(username);
