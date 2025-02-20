@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crear Personaje</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../styles/style.css">
+  <link rel="stylesheet" href="/styles/components/button.css">
+  <link rel="stylesheet" href="../styles/components/navbar.css">
+</head>
+
+<body>
+  <nav id="navbar-placeholder"></nav>
+  <form id="form-personaje">
+    <div class="form-group">
+      <label for="nombre">Nombre</label>
+      <input type="text" class="form-control" id="Nombre" placeholder="Ingrese el nombre del personaje" required>
+    </div>
+    <div class="form-group">
+      <label for="vida">Vida</label>
+      <input type="number" class="form-control" id="vida" placeholder="Ingrese la vida del personaje" required>
+    </div>
+    <div class="form-group">
+      <label for="ataque">Ataque</label>
+      <input type="number" class="form-control" id="ataque" placeholder="Ingrese el ataque del personaje" required>
+    </div>
+    <div class="form-group">
+      <label for="defensa">Defensa</label>
+      <input type="number" class="form-control" id="defensa" placeholder="Ingrese la defensa del personaje" required>
+    </div>
+    <div class="form-group">
+      <label for="velocidad">Velocidad</label>
+      <input type="number" class="form-control" id="velocidad" placeholder="Ingrese la velocidad del personaje" required>
+    </div>
+    <button type="submit" class="btn btn-success">Guardar</button>
+    <div id="button-placeholder"></div>
+  </form>
+
+  <script type="module" src="/js/CrearEditarPersonaje.js"></script>
+</body>
+
+</html>

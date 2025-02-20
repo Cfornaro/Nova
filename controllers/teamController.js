@@ -12,7 +12,7 @@ exports.getAllTeams = async (req, res) => {
 };
 
 exports.getTeamById = async (req, res) => {
-    const id = req.params.id;
+    const id = parseInt(req.params.id, 10);
     try {
         const team = await prisma.team.findUnique({
             where: { id },
@@ -29,10 +29,10 @@ exports.getTeamById = async (req, res) => {
 };
 
 exports.createTeam = async (req, res) => {
-    const { name, player1Username, player2Username, player3Username, player4Username, player5Username } = req.body;
+    const { name, character1Id, character2Id, character3Id, character4Id, character5Id } = req.body;
     try {
         const newTeam = await prisma.team.create({
-            data: { name, player1Username, player2Username, player3Username, player4Username, player5Username },
+            data: { name, name, character1Id, character2Id, character3Id, character4Id, character5Id },
         });
         res.status(201).json(newTeam);
     } catch (error) {
@@ -42,12 +42,13 @@ exports.createTeam = async (req, res) => {
 };
 
 exports.updateTeamById = async (req, res) => {
-    const id = req.params.id;
-    const { name, player1Username, player2Username, player3Username, player4Username, player5Username } = req.body;
+    const id = parseInt(req.params.id, 10);
+    const { name, character1Id, character2Id, character3Id, character4Id, character5Id } = req.body;
+
     try {
         const updatedTeam = await prisma.team.update({
             where: { id },
-            data: { name, player1Username, player2Username, player3Username, player4Username, player5Username },
+            data: { name, character1Id, character2Id, character3Id, character4Id, character5Id },
         });
         res.json(updatedTeam);
     } catch (error) {
@@ -56,8 +57,9 @@ exports.updateTeamById = async (req, res) => {
     }
 };
 
+
 exports.deleteTeamById = async (req, res) => {
-    const id = req.params.id;
+    const id = parseInt(req.params.id, 10);
     try {
         const team = await prisma.team.delete({
             where: { id },

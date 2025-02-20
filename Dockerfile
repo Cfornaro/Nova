@@ -14,8 +14,5 @@ COPY . .
 # Genera el cliente de Prisma
 RUN npx prisma generate
 
-# Ejecuta las migraciones de Prisma
-RUN npx prisma migrate deploy
-
-# Comando para iniciar la aplicación
-CMD ["node", "app.js"]
+# Ejecuta Prisma migrate deploy al inicio del contenedor
+CMD npx prisma migrate deploy && node app.js

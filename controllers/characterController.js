@@ -12,7 +12,7 @@ exports.getAllCharacters = async (req, res) => {
 };
 
 exports.getCharacterById = async (req, res) => {
-    const id = req.params.id;
+    const id = parseInt(req.params.id, 10);
     try {
         const character = await prisma.character.findUnique({
             where: { id },
@@ -48,7 +48,7 @@ exports.createCharacter = async (req, res) => {
 };
 
 exports.updateCharacterById = async (req, res) => {
-    const id = req.params.id;
+    const id = parseInt(req.params.id, 10);
     const { name, health, attack, defense, speed } = req.body;
     try {
         const updatedCharacter = await prisma.character.update({
@@ -63,7 +63,7 @@ exports.updateCharacterById = async (req, res) => {
 };
 
 exports.deleteCharacterById = async (req, res) => {
-    const id = req.params.id;
+    const id = parseInt(req.params.id, 10);
     try {
         const character = await prisma.character.delete({
             where: { id },
