@@ -49,11 +49,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (playerTeams.length > 0) {
       cargarEquipos(playerTeams, allCharacters);
     } else {
-      console.log('⚡ Este jugador no tiene equipos.');
+      console.log('Este jugador no tiene equipos.');
     }
   } catch (error) {
-    console.error('❌ Error al cargar el perfil:', error);
-    alert('⚠️ No se pudo cargar la información del jugador.');
+    console.error('Error al cargar el perfil:', error);
+    alert('No se pudo cargar la información del jugador.');
   }
 });
 
