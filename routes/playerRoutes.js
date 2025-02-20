@@ -8,6 +8,7 @@ router.get('/search/:username', playerController.searchPlayersByUsername);
 router.get('/:username', playerController.getPlayerByUsername);
 router.post('/', playerController.createPlayer);
 router.put('/:username', playerController.updatePlayerByUsername);
+router.delete('/:username', playerController.deletePlayerByUsername); 
 
 // Otras rutas para POST, PUT, DELETE si queremos implementar
 
