@@ -1,25 +1,26 @@
 import { loadNavbar } from '../js/components/navbar.js';
 import { crearButton } from '/js/components/button.js';
 import { characterAPI } from '/js/api/characterAPI.js';
-import { teamAPI } from '/js/api/teamAPI.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
   loadNavbar();
-
   const params = new URLSearchParams(window.location.search);
   const username = params.get('username');
   crearButton('Volver', `/pages/user.html?username=${username}`);
-  if (!username) {
-    alert('No se especificó un jugador');
-    return;
-  }
 
+  const btnCrear = document.createElement('button');
+  btnCrear.textContent = 'Crear Personaje';
+  btnCrear.classList.add('btn', 'btn-success', 'mb-3');
+  btnCrear.addEventListener('click', () => {
+    window.location.href = `/pages/CrearPersonaje.html?username=${username}`;
+  });
+  document.getElementById('button-placeholder').appendChild(btnCrear);
+
+  if (!username) return alert('No se especificó un jugador');
 
   try {
     const characters = await characterAPI.getAll();
-    const playerCharacters = characters.filter(
-      (char) => char.playerUsername === username
-    );
+    const playerCharacters = characters.filter((char) => char.playerUsername === username);
     cargarPersonajes(playerCharacters, username);
   } catch (error) {
     console.error('Error al cargar personajes:', error);
@@ -29,7 +30,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 function cargarPersonajes(characters, username) {
   const tbody = document.querySelector('tbody');
   tbody.innerHTML = '';
-
   characters.forEach((char) => {
     const row = document.createElement('tr');
     row.innerHTML = `
@@ -49,28 +49,26 @@ function cargarPersonajes(characters, username) {
 }
 
 function agregarEventos(username) {
+  document.querySelectorAll('.btn-editar').forEach((btn) =>
+    btn.addEventListener('click', () => {
+      const id = btn.getAttribute('data-id');
+      window.location.href = `/pages/CrearPersonaje.html?username=${username}&id=${id}`;
+    })
+  );
 
-  document.querySelectorAll('.btn-editar').forEach((button) => {
-    button.addEventListener('click', () => {
-      const id = button.getAttribute('data-id');
-      window.location.href = `/pages/EditarPersonaje.html?username=${username}&id=${id}`;
-    });
-  });
-
-  document.querySelectorAll('.btn-borrar').forEach((button) => {
-    button.addEventListener('click', async () => {
-        const id = button.getAttribute('data-id');
-        if (confirm('¿Seguro que deseas eliminar este personaje?')) {
-            try {
-                await characterAPI.deleteById(id);
-                alert('Personaje eliminado exitosamente');
-                location.reload();
-            } catch (error) {
-                console.error('Error al eliminar personaje:', error);
-                alert('Problema al eliminar el personaje');
-            }
+  document.querySelectorAll('.btn-borrar').forEach((btn) =>
+    btn.addEventListener('click', async () => {
+      const id = btn.getAttribute('data-id');
+      if (confirm('¿Seguro que deseas eliminar este personaje?')) {
+        try {
+          await characterAPI.deleteById(id);
+          alert('Personaje eliminado');
+          location.reload();
+        } catch (error) {
+          console.error('Error al eliminar personaje:', error);
+          alert('Problema al eliminar personaje');
         }
-    });
-  });
-
+      }
+    })
+  );
 }
