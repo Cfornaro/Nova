@@ -1,6 +1,8 @@
 import { playerAPI } from '/js/api/playerAPI.js';
 import { characterAPI } from '/js/api/characterAPI.js';
 import { teamAPI } from '/js/api/teamAPI.js';
+import { loadNavbar } from '../js/components/navbar.js';
+import { crearButton } from '/js/components/button.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
 
@@ -8,9 +10,15 @@ document.addEventListener('DOMContentLoaded', async () => {
   const username = params.get('username');
 
   if (!username) {
-    alert('⚠️ No se especificó un jugador');
+    alert('No se especificó un jugador');
     return;
   }
+
+  loadNavbar();
+  crearButton('Editar Equipos', '/pages/EditarEquipos.html', username);
+  crearButton('Editar Personajes', '/pages/EditarPersonajes.html', username);
+  crearButton('Editar Jugador', '/pages/EditarJugador.html', username);
+  crearButton('Borrar Jugador', '/', username);
 
   try {
 
