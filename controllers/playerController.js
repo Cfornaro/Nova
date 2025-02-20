@@ -3,7 +3,11 @@ const prisma = new PrismaClient();
 
 exports.getAllPlayers = async (req, res) => {
     try {
-        const players = await prisma.player.findMany();
+        const players = await prisma.player.findMany({
+            orderBy: {
+                ranking: 'desc'
+            }
+        });
         res.json(players);
     } catch (error) {
         console.error(error);
