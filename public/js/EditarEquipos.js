@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 });
 
-//Cargamos la tabla de equipos
+//cargamos la tabla de equipos
 function cargarEquipos(teams, allCharacters, username) {
   const tbody = document.querySelector('tbody');
   tbody.innerHTML = '';
@@ -67,13 +67,15 @@ function cargarEquipos(teams, allCharacters, username) {
 }
 
 function agregarEventos(username) {
+  // redirige a EquipoForm.html para EDITAR (con id)
   document.querySelectorAll('.btn-editar').forEach((button) => {
     button.addEventListener('click', () => {
       const id = button.getAttribute('data-id');
-      window.location.href = `/pages/EditarEquipo.html?username=${username}&id=${id}`;
+      window.location.href = `/pages/EquipoForm.html?username=${username}&id=${id}`;
     });
   });
 
+  // eliminamos equipo
   document.querySelectorAll('.btn-borrar').forEach((button) => {
     button.addEventListener('click', async () => {
       const id = button.getAttribute('data-id');
@@ -88,5 +90,10 @@ function agregarEventos(username) {
         }
       }
     });
+  });
+
+  // redirige a EquipoForm.html para CREAR (sin id)
+  document.getElementById('btn-crear-equipo').addEventListener('click', () => {
+    window.location.href = `/pages/EquipoForm.html?username=${username}`;
   });
 }

@@ -13,11 +13,22 @@ document.addEventListener('DOMContentLoaded', async () => {
   loadNavbar();
   crearButton('Volver a Equipos', `/pages/EditarEquipos.html?username=${username}`);
 
-  if (!teamId || !username) {
-    alert('Faltan datos para editar el equipo');
+  if (!username) {
+    alert('No se especificó un jugador');
     return;
   }
 
+  if (teamId) {
+    document.getElementById('btn-guardar-equipo').textContent = 'Actualizar Equipo';
+    await cargarEquipoExistente();
+  } else {
+    await cargarNuevoEquipo();
+  }
+
+  document.getElementById('form-equipo').addEventListener('submit', guardarEquipo);
+});
+
+async function cargarEquipoExistente() {
   try {
     const [team, allCharacters, allTeams] = await Promise.all([
       teamAPI.getById(teamId),
@@ -27,13 +38,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const personajesAsignadosEnOtrosEquipos = allTeams
       .filter((t) => t.id !== parseInt(teamId))
-      .flatMap((t) => [
-        t.character1Id,
-        t.character2Id,
-        t.character3Id,
-        t.character4Id,
-        t.character5Id,
-      ])
+      .flatMap((t) => [t.character1Id, t.character2Id, t.character3Id, t.character4Id, t.character5Id])
       .filter(Boolean);
 
     personajesDisponibles = allCharacters.filter(
@@ -58,9 +63,35 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.error('Error al cargar equipo:', error);
     alert('No se pudo cargar el equipo');
   }
+}
 
-  document.getElementById('form-editar-equipo').addEventListener('submit', guardarCambios);
-});
+async function cargarNuevoEquipo() {
+  try {
+    const [allCharacters, allTeams] = await Promise.all([
+      characterAPI.getAll(),
+      teamAPI.getAll(),
+    ]);
+
+    const personajesAsignadosEnEquipos = allTeams.flatMap((team) => [
+      team.character1Id,
+      team.character2Id,
+      team.character3Id,
+      team.character4Id,
+      team.character5Id,
+    ]).filter(Boolean);
+
+    personajesDisponibles = allCharacters.filter(
+      (char) =>
+        char.playerUsername === username &&
+        !personajesAsignadosEnEquipos.includes(char.id)
+    );
+
+    renderizarPersonajesDisponibles();
+  } catch (error) {
+    console.error('Error al cargar personajes:', error);
+    alert('No se pudieron cargar los personajes disponibles');
+  }
+}
 
 function renderizarPersonajes() {
   const contenedor = document.getElementById('personajes-equipo');
@@ -127,10 +158,10 @@ function quitarPersonaje(id) {
   renderizarPersonajesDisponibles();
 }
 
-async function guardarCambios(e) {
+async function guardarEquipo(e) {
   e.preventDefault();
 
-  const equipoActualizado = {
+  const equipo = {
     name: document.getElementById('equipoNombre').value,
     character1Id: personajesAsignados[0]?.id || null,
     character2Id: personajesAsignados[1]?.id || null,
@@ -140,11 +171,16 @@ async function guardarCambios(e) {
   };
 
   try {
-    await teamAPI.updateById(teamId, equipoActualizado);
-    alert('¡Equipo actualizado exitosamente!');
+    if (teamId) {
+      await teamAPI.updateById(teamId, equipo);
+      alert('¡Equipo actualizado exitosamente!');
+    } else {
+      await teamAPI.create(equipo);
+      alert('¡Equipo creado exitosamente!');
+    }
     window.location.href = `/pages/EditarEquipos.html?username=${username}`;
   } catch (error) {
-    console.error('Error al actualizar equipo:', error);
-    alert('Problema al actualizar el equipo');
+    console.error('Error al guardar el equipo:', error);
+    alert('Problema al guardar el equipo');
   }
 }
