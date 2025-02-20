@@ -136,7 +136,7 @@ function cargarPersonajesDelEquipo(team, allCharacters) {
   teamCharacterIds.forEach((id, index) => {
     const character = allCharacters.find((char) => char.id === id);
     if (character) {
-      personajeElements[index].innerText = `${character.name} (HP: ${character.health}, ATK: ${character.attack}, DEF: ${character.defense}, SPD: ${character.speed})`;
+      personajeElements[index].innerText = `${character.name}`;
     } else {
       personajeElements[index].innerText = 'Sin personaje';
     }
